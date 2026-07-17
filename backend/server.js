@@ -4,6 +4,11 @@ require("dotenv").config();
 
 const connectDB = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
+const protect = require("./middleware/authMiddleware");
+
+
+
+
 
 const app = express();
 
@@ -16,6 +21,13 @@ app.use(express.json());
 
 // Routes
 app.use("/api/auth", authRoutes);
+app.get("/api/protected", protect, (req, res) => {
+  res.json({
+    success: true,
+    message: "Protected route accessed successfully",
+    user: req.user,
+  });
+});
 
 // Test Route
 app.get("/", (req, res) => {
