@@ -6,7 +6,6 @@ const Invoice = require("../models/Invoice");
 const createInvoice = async (req, res) => {
   try {
     const {
-      invoiceNumber,
       clientName,
       clientEmail,
       issueDate,
@@ -19,6 +18,17 @@ const createInvoice = async (req, res) => {
       notes,
     } = req.body;
 
+// Generate Invoice Number
+const lastInvoice = await Invoice.findOne().sort({ createdAt: -1 });
+
+let invoiceNumber = "INV-1001";
+
+if (lastInvoice && lastInvoice.invoiceNumber) {
+  const lastNumber = parseInt(lastInvoice.invoiceNumber.split("-")[1]);
+
+  invoiceNumber = `INV-${lastNumber + 1}`;
+
+
     // Check if invoice number already exists
     const existingInvoice = await Invoice.findOne({ invoiceNumber });
 
@@ -28,6 +38,9 @@ const createInvoice = async (req, res) => {
         message: "Invoice number already exists",
       });
     }
+}
+
+
 
     const invoice = await Invoice.create({
       user: req.user.id,
