@@ -1,20 +1,19 @@
+import { Routes, Route } from "react-router-dom";
+
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Dashboard from "./pages/Dashboard";
+import NotFound from "./pages/NotFound";
+
 function App() {
   return (
-    <div className="min-h-screen bg-slate-100 flex items-center justify-center">
-      <div className="bg-white p-10 rounded-2xl shadow-xl text-center">
-        <h1 className="text-5xl font-bold text-blue-600">
-          InvoiceFlow
-        </h1>
-
-        <p className="mt-4 text-gray-600">
-          MERN Invoice Management System
-        </p>
-
-        <button className="mt-6 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700">
-          Get Started
-        </button>
-      </div>
-    </div>
+    <Routes>
+      <Route path="/" element={<Login />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
   );
 }
 
