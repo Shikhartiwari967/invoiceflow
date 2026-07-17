@@ -10,6 +10,7 @@ const protect = require("./middleware/authMiddleware");
 
 
 
+
 const app = express();
 
 // Connect Database
@@ -21,6 +22,7 @@ app.use(express.json());
 
 // Routes
 app.use("/api/auth", authRoutes);
+app.use("/api/invoices", require("./routes/invoiceRoutes"));
 app.get("/api/protected", protect, (req, res) => {
   res.json({
     success: true,
