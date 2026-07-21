@@ -5,6 +5,8 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
+import CreateInvoice from "./pages/CreateInvoice";
+import InvoiceDetails from "./pages/InvoiceDetails";
 
 
 function App() {
@@ -20,6 +22,17 @@ function App() {
           <Dashboard />
         </ProtectedRoute>
       } />
+      <Route path="/create-invoice"
+        element={
+          <ProtectedRoute>
+            <CreateInvoice />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/invoice/:id"
+        element={<InvoiceDetails />}
+      />
     </Routes>
   );
 }
